@@ -2,12 +2,24 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="paneel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.candycrush.CandycrushController">
+<AnchorPane fx:id="paneel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: DEEPSKYBLUE;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.candycrush.controller.CandycrushController">
    <children>
-      <Button fx:id="btn" layoutX="321.0" layoutY="20.0" mnemonicParsing="false" text="Start" />
-      <AnchorPane fx:id="speelbord" layoutX="95.0" layoutY="67.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label fx:id="Label" layoutX="51.0" layoutY="24.0" text="Login" />
-      <TextField fx:id="textInput" layoutX="120.0" layoutY="20.0" />
+      <Button fx:id="Reset" layoutX="640.0" layoutY="36.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="129.0" text="Reset">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="27.0" />
+         </font></Button>
+      <AnchorPane fx:id="speelbord" layoutX="14.0" layoutY="25.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: DARKTURQUOISE;" />
+      <Label layoutX="640.0" layoutY="149.0" prefHeight="24.0" prefWidth="63.0" text="Score:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="Score" layoutX="703.0" layoutY="149.0" prefHeight="24.0" text="0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.Collection;
@@ -17,8 +18,8 @@ public class CandycrushView extends Region {
 
     public CandycrushView(CandycrushModel model) {
         this.model = model;
-        widthCandy = 30;
-        heigthCandy = 30;
+        widthCandy = 60;
+        heigthCandy = 60;
         update();
     }
 
@@ -28,13 +29,18 @@ public class CandycrushView extends Region {
         int height = 0;
         Iterator<Integer> iter = model.getSpeelbord().iterator();
         while(iter.hasNext()) {
+
             int candy = iter.next();
             Rectangle rectangle = new Rectangle(i * widthCandy, height * heigthCandy, widthCandy,heigthCandy);
-            rectangle.setFill(Color.TRANSPARENT);
+            rectangle.setFill(Color.DODGERBLUE);
             rectangle.setStroke(Color.BLACK);
+            rectangle.setArcHeight(20);
+            rectangle.setArcWidth(20);
+            rectangle.setStrokeWidth(3);
             Text text = new Text("" + candy);
+            text.setFont(Font.font(30));
             text.setX(rectangle.getX() + (rectangle.getWidth() - text.getBoundsInLocal().getWidth()) / 2);
-            text.setY(rectangle.getY() + (rectangle.getHeight() + text.getBoundsInLocal().getHeight()) / 2);
+            text.setY(rectangle.getY()-8 + (rectangle.getHeight() + text.getBoundsInLocal().getHeight()) / 2);
             getChildren().addAll(rectangle,text);
 
             if (i == model.getWidth() - 1) {

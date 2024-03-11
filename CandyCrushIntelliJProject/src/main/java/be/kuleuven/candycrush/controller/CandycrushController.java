@@ -1,8 +1,9 @@
-package be.kuleuven.candycrush;
+package be.kuleuven.candycrush.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import be.kuleuven.candycrush.LoginApplication;
 import be.kuleuven.candycrush.model.CandycrushModel;
 import be.kuleuven.candycrush.view.CandycrushView;
 import javafx.fxml.FXML;
@@ -21,10 +22,8 @@ public class CandycrushController {
     private URL location;
 
     @FXML
-    private Label Label;
+    private Label Score;
 
-    @FXML
-    private Button btn;
 
     @FXML
     private AnchorPane paneel;
@@ -33,30 +32,38 @@ public class CandycrushController {
     private AnchorPane speelbord;
 
     @FXML
-    private TextField textInput;
+    private Button Reset;
+
 
     private CandycrushModel model;
     private CandycrushView view;
+
+    private LoginController loginController;
+
     @FXML
     void initialize() {
-        assert Label != null : "fx:id=\"Label\" was not injected: check your FXML file 'candycrush-view.fxml'.";
-        assert btn != null : "fx:id=\"btn\" was not injected: check your FXML file 'candycrush-view.fxml'.";
-        assert paneel != null : "fx:id=\"paneel\" was not injected: check your FXML file 'candycrush-view.fxml'.";
-        assert speelbord != null : "fx:id=\"speelbord\" was not injected: check your FXML file 'candycrush-view.fxml'.";
-        assert textInput != null : "fx:id=\"textInput\" was not injected: check your FXML file 'candycrush-view.fxml'.";
-        model = new CandycrushModel("Test");
+
+        model = new CandycrushModel(LoginController.getName());
         view = new CandycrushView(model);
         speelbord.getChildren().add(view);
+
         view.setOnMouseClicked(this::onCandyClicked);
+        Reset.setOnMouseClicked(event -> reset());
     }
 
     public void update(){
         view.update();
+        Score.setText(model.getScore() + "");
     }
 
     public void onCandyClicked(MouseEvent me){
         int candyIndex = view.getIndexOfClicked(me);
-        model.candyWithIndexSelected(candyIndex);
+        model.changeNeighbours(candyIndex);
+        update();
+    }
+
+    private void reset() {
+        model.resetAll();
         update();
     }
 

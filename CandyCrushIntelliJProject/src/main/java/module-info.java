@@ -6,5 +6,7 @@ module be.kuleuven.candycrush {
     requires be.kuleuven.checkNeigboursInGrid;
 
     opens be.kuleuven.candycrush to javafx.fxml;
+
     exports be.kuleuven.candycrush;
+    opens be.kuleuven.candycrush.controller to javafx.fxml;
 }
