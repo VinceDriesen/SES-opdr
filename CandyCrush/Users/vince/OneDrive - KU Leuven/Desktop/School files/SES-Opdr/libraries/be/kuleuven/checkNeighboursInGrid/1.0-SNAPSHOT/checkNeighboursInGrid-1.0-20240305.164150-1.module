@@ -1,0 +1,100 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "be.kuleuven",
+    "module": "checkNeighboursInGrid",
+    "version": "1.0-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.6"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "checkNeighboursInGrid-1.0-SNAPSHOT.jar",
+          "url": "checkNeighboursInGrid-1.0-SNAPSHOT.jar",
+          "size": 1744,
+          "sha512": "cba2a0b9eb059075811f86a29345e86180f9736ec0f3122a992983ee0737a0262df62628beb2d241397b50aac7939662ad145897dd1dbb1e3d2effbfb4e928e4",
+          "sha256": "2b6f1b7a851448b38b927d546ccd127ee4ea347ada30adc9ed01cbcff11a6602",
+          "sha1": "85164495da3b15ab56c64924bdf3a54618f1832b",
+          "md5": "a1ed6ad6f37e6d0e414ecb2a3c7029f8"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "checkNeighboursInGrid-1.0-SNAPSHOT.jar",
+          "url": "checkNeighboursInGrid-1.0-SNAPSHOT.jar",
+          "size": 1744,
+          "sha512": "cba2a0b9eb059075811f86a29345e86180f9736ec0f3122a992983ee0737a0262df62628beb2d241397b50aac7939662ad145897dd1dbb1e3d2effbfb4e928e4",
+          "sha256": "2b6f1b7a851448b38b927d546ccd127ee4ea347ada30adc9ed01cbcff11a6602",
+          "sha1": "85164495da3b15ab56c64924bdf3a54618f1832b",
+          "md5": "a1ed6ad6f37e6d0e414ecb2a3c7029f8"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "checkNeighboursInGrid-1.0-SNAPSHOT-sources.jar",
+          "url": "checkNeighboursInGrid-1.0-SNAPSHOT-sources.jar",
+          "size": 1609,
+          "sha512": "76d992bcc4e5e0928cbc4e6c291114e68b5b45b9b08a2cde70982fb8ce2f5c662659571f94f76ea0b659d974490ea30af03fb3f4adffe06cd082b6055c98d76f",
+          "sha256": "e9581cd979e04ea2c4ee657b94eabcb9f19013953d7f6b293b92661064ba6735",
+          "sha1": "e2574a1a1a318c55acc5f19f07e501c0201b5855",
+          "md5": "3f53460278468d9050b770f4a2d61bbe"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "checkNeighboursInGrid-1.0-SNAPSHOT-javadoc.jar",
+          "url": "checkNeighboursInGrid-1.0-SNAPSHOT-javadoc.jar",
+          "size": 81116,
+          "sha512": "34c5ceef32ef129d52a9cbdfecff74335312c1db5260b1edb7f475799105e5bb1e2e70b67bc4d28e7da36401f4b8a041edd8dead59f902288a5f5e1cf4d7022a",
+          "sha256": "ea82a714f5de6ebf45bbf9cbf2b3f815ffad4104e130013ba2d93f692e8fd35d",
+          "sha1": "6d0558ce3b064bdb663be2009689875614885a71",
+          "md5": "6c4702a63b31b38ff19786dc42adc438"
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-package be.kuleuven.candycrush;
+package be.kuleuven;
 import java.util.ArrayList;
 import java.util.Collections;
 
