@@ -25,7 +25,7 @@ jobs:
       run: cd ./CandyCrushIntelliJProject/
 
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew 
+      run: chmod +x ./gradlew 
 
     - name: Test with Gradle Wrapper
       run: ./gradlew test
