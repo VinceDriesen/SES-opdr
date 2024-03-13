@@ -13,8 +13,9 @@ repositories {
     mavenCentral()
 
     maven {
-        url = "C:\\Users\\vince\\OneDrive - KU Leuven\\Desktop\\School files\\SES-Oprd\\libraries"
+        url = "C:/Users/vince/OneDrive - KU Leuven/Desktop/School files/SES-Oprd/libraries"
     }
+
 
 }
 
