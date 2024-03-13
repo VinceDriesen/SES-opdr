@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -26,7 +27,7 @@ public class LoginController implements Initializable {
     @FXML
     private TextField Name;
 
-    private static String passName;
+    public static String passName;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,7 +38,7 @@ public class LoginController implements Initializable {
 
     private void startPressed(String fxmlNaam) {
         try {
-            if (!Name.getCharacters().isEmpty()) {
+            if (isValidName()) {
                 CandycrushApplication application = new CandycrushApplication();
                 Stage stage = new Stage();
 
@@ -55,7 +56,7 @@ public class LoginController implements Initializable {
 
     private void update(KeyEvent event) {
 
-        if(!Name.getCharacters().isEmpty()) {
+        if(isValidName()) {
             Start.setStyle("-fx-background-color : GREEN");
         }
 
@@ -66,5 +67,9 @@ public class LoginController implements Initializable {
 
     public static String getName() {
         return passName;
+    }
+
+    public boolean isValidName() {
+        return !Name.getCharacters().isEmpty();
     }
 }

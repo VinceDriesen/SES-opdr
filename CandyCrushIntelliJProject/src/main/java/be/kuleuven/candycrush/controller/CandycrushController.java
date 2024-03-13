@@ -38,8 +38,6 @@ public class CandycrushController {
     private CandycrushModel model;
     private CandycrushView view;
 
-    private LoginController loginController;
-
     @FXML
     void initialize() {
 
