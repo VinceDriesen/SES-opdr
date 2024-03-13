@@ -30,23 +30,6 @@ public class CandycrushModel {
         }
     }
 
-//    public static void main(String[] args) {
-//        CandycrushModel model = new CandycrushModel(speler);
-//        int i = 1;
-//        Iterator<Integer> iter = model.getSpeelbord().iterator();
-//        while(iter.hasNext()){
-//            int candy = iter.next();
-//            System.out.print(candy);
-//            if(i% model.getWidth()==0){
-//                System.out.print("\n");
-//                i = 1;
-//            }
-//            i++;
-//        }
-//        System.out.print("\n");
-//
-//    }
-
     public String getSpeler() {
         return speler;
     }
@@ -64,7 +47,6 @@ public class CandycrushModel {
     }
 
     public void candyWithIndexSelected(int index){
-        //TODO: update method so it also changes direct neighbours of same type and updates score
         if (index != -1){
             Random random = new Random();
             int randomGetal = random.nextInt(5) + 1;
@@ -90,7 +72,7 @@ public class CandycrushModel {
         }
     }
 
-    private int getSizeIterable(Iterable<Integer> iterable) {
+    public int getSizeIterable(Iterable<Integer> iterable) {
         int counter = 0;
         for (Integer i : iterable) {
             counter++;
@@ -114,6 +96,8 @@ public class CandycrushModel {
         }
     }
 
-
-
+    public void setGrid(ArrayList<Integer> array) {
+        speelbord.clear();
+        speelbord.addAll(array);
+    }
 }

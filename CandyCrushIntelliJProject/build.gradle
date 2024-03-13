@@ -12,10 +12,6 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 
-    flatDir {
-        dirs 'lib'
-    }
-
     maven {
         url = "C:\\Users\\vince\\OneDrive - KU Leuven\\Desktop\\School files\\SES-Oprd\\libraries"
     }
@@ -45,6 +41,7 @@ javafx {
 
 dependencies {
     implementation('org.controlsfx:controlsfx:11.1.2')
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.3'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
