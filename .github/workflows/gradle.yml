@@ -8,10 +8,12 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    defaults:
+      run:
+        working-directory: ./CandyCrushIntelliJProject
 
     steps:
     - uses: actions/checkout@v4
@@ -22,9 +24,7 @@ jobs:
         distribution: 'temurin'
         
     - name: Grant execute permission for gradlew
-      run: chmod +x ./CandyCrushIntellijProject/gradlew 
-
+      run: chmod +x gradlew
+      
     - name: Test with Gradle Wrapper
-      run: ./CandyCrushIntellijProject/gradlew test
-
-    
+      run: ./gradlew test
