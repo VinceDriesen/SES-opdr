@@ -22,9 +22,9 @@ jobs:
         distribution: 'temurin'
         
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: chmod +x C:\Users\vince\OneDrive - KU Leuven\Desktop\School files\SES-Oprd\CandyCrushIntelliJP/gradlew
 
     - name: Test with Gradle Wrapper
-      run: ./gradlew test
+      run: C:\Users\vince\OneDrive - KU Leuven\Desktop\School files\SES-Oprd\CandyCrushIntelliJP/gradlew test
 
     
