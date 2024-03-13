@@ -27,4 +27,6 @@ jobs:
     - name: Test with Gradle Wrapper
       run: ./CandyCrushIntelliJProject/gradlew test
 
+    - name: Build with Gradle Wrapper
+      run: ./CandyCrushIntelliJProject/gradlew build -p ./CandyCrushIntelliJProject
     
