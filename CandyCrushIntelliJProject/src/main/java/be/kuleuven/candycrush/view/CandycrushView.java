@@ -1,14 +1,21 @@
 package be.kuleuven.candycrush.view;
 
+import be.kuleuven.candycrush.model.BoardSize;
+import be.kuleuven.candycrush.model.Candies.*;
+import be.kuleuven.candycrush.model.Candy;
 import be.kuleuven.candycrush.model.CandycrushModel;
+import be.kuleuven.candycrush.model.Position;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CandycrushView extends Region {
@@ -25,42 +32,69 @@ public class CandycrushView extends Region {
 
     public void update(){
         getChildren().clear();
-        int i = 0;
-        int height = 0;
-        Iterator<Integer> iter = model.getSpeelbord().iterator();
-        while(iter.hasNext()) {
+        for(Position position : model.getBoardSize().positions()) {
+            Node node = makeShapeCandy(position, model.getCandyFromPosition(position));
+            getChildren().addAll(node);
+        }
+    }
 
-            int candy = iter.next();
-            Rectangle rectangle = new Rectangle(i * widthCandy, height * heigthCandy, widthCandy,heigthCandy);
-            rectangle.setFill(Color.DODGERBLUE);
-            rectangle.setStroke(Color.BLACK);
-            rectangle.setArcHeight(20);
-            rectangle.setArcWidth(20);
-            rectangle.setStrokeWidth(3);
-            Text text = new Text("" + candy);
-            text.setFont(Font.font(30));
-            text.setX(rectangle.getX() + (rectangle.getWidth() - text.getBoundsInLocal().getWidth()) / 2);
-            text.setY(rectangle.getY()-8 + (rectangle.getHeight() + text.getBoundsInLocal().getHeight()) / 2);
-            getChildren().addAll(rectangle,text);
+    public Position getPositionOfClicked(MouseEvent me){
+        Position position = null;
+        int row = (int) me.getX()/heigthCandy;
+        int column = (int) me.getY()/widthCandy;
 
-            if (i == model.getWidth() - 1) {
-                i = 0;
-                height++;
-            } else {
-                i++;
+        System.out.println(me.getX()+" - "+me.getY()+" - "+row+" - "+column);
+
+        if (row < model.getWidth() && column < model.getHeight()){
+            position = new Position(row, column, model.getBoardSize());
+            System.out.println(position.toIndex());
+        }
+        return position;
+    }
+
+    public Node makeShapeCandy(Position position, Candy candy) {
+        if(candy instanceof NormalCandy) {
+            switch(((NormalCandy) candy).color()) {
+                case 0:
+                    return new Circle(position.x() * widthCandy + widthCandy/2, position.y() * heigthCandy + heigthCandy/2, widthCandy / 2, Color.BLUE);
+                case 1:
+                    return new Circle(position.x() * widthCandy + widthCandy/2, position.y() * heigthCandy + heigthCandy/2, widthCandy / 2, Color.PURPLE);
+                case 2:
+                    return new Circle(position.x() * widthCandy + widthCandy/2, position.y() * heigthCandy + heigthCandy/2, widthCandy / 2, Color.RED);
+                case 3:
+                    return new Circle(position.x() * widthCandy + widthCandy/2, position.y() * heigthCandy + heigthCandy/2, widthCandy / 2, Color.YELLOW);
+
             }
         }
+        else {
+            switch (candy) {
+                case UltimateCandy ultimateCandy -> {
+                    Rectangle vierkant = new Rectangle(position.x() * widthCandy, position.y() * heigthCandy, widthCandy, heigthCandy);
+                    vierkant.setFill(Color.YELLOW);
+                    return vierkant;
+                }
+                case BlueBerrie blueBerrie -> {
+                    Rectangle vierkant = new Rectangle(position.x() * widthCandy, position.y() * heigthCandy, widthCandy, heigthCandy);
+                    vierkant.setFill(Color.BLUE);
+                    return vierkant;
+                }
+                case StrawBerrie strawBerrie -> {
+                    Rectangle vierkant = new Rectangle(position.x() * widthCandy, position.y() * heigthCandy, widthCandy, heigthCandy);
+                    vierkant.setFill(Color.RED);
+                    return vierkant;
+                }
+                case RainbowCandy rainbowCandy -> {
+                    Rectangle vierkant = new Rectangle(position.x() * widthCandy, position.y() * heigthCandy, widthCandy, heigthCandy);
+                    vierkant.setFill(Color.PURPLE);
+                    return vierkant;
+                }
+                case null, default -> {
+                }
+            }
+
+        }
+        return null;
     }
 
-    public int getIndexOfClicked(MouseEvent me){
-        int index = -1;
-        int row = (int) me.getY()/heigthCandy;
-        int column = (int) me.getX()/widthCandy;
-        System.out.println(me.getX()+" - "+me.getY()+" - "+row+" - "+column);
-        if (row < model.getWidth() && column < model.getHeight()){
-            index = model.getIndexFromRowColumn(row,column);
-            System.out.println(index);
-        }
-        return index;
-    }
+
 }
