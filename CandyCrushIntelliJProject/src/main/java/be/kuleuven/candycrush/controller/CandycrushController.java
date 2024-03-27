@@ -3,13 +3,12 @@ package be.kuleuven.candycrush.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import be.kuleuven.candycrush.LoginApplication;
 import be.kuleuven.candycrush.model.CandycrushModel;
+import be.kuleuven.candycrush.model.Position;
 import be.kuleuven.candycrush.view.CandycrushView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -55,8 +54,8 @@ public class CandycrushController {
     }
 
     public void onCandyClicked(MouseEvent me){
-        int candyIndex = view.getIndexOfClicked(me);
-        model.changeNeighbours(candyIndex);
+        Position position = view.getPositionOfClicked(me);
+        model.changeNeighboursFromPosition(position);
         update();
     }
 
