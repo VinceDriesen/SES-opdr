@@ -74,15 +74,14 @@ public class CandycrushModel{
         ArrayList<Position> neighbours = new ArrayList<>();
         for(Position p : position.neighborPositions()) {
             if(getCandyFromPosition(p).equals(getCandyFromPosition(position))) {
-
                 neighbours.add(p);
-                score++;
             }
         }
         return neighbours;
     }
 
     public void changeNeighboursFromPosition(Position position) {
+        ArrayList<Position> neighbours = (ArrayList<Position>)getSameNeighboutPositions();
         if(neighbours.size() >= 4) {
             candyWithPositionSelected(position);
             score++;
