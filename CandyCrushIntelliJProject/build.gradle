@@ -40,6 +40,8 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation group: 'com.google.guava', name: 'guava', version: '33.1.0-jre'
 }
 
 test {

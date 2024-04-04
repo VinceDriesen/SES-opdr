@@ -3,11 +3,8 @@ package be.kuleuven.candycrush.model;
 import org.junit.jupiter.api.Test;
 import be.kuleuven.candycrush.model.Candies.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BoardTests {
@@ -18,7 +15,7 @@ public class BoardTests {
         Function<Position, Candy> cellCreator = position -> new NormalCandy(0);
         Board<Candy> board = new Board<>(boardSize, cellCreator);
 
-        Candy uitkomst = board.getCallAt(new Position(2,2,boardSize));
+        Candy uitkomst = board.getCellAt(new Position(2,2,boardSize));
         assertThat(uitkomst).isEqualTo(new NormalCandy(0));
     }
 
@@ -30,7 +27,7 @@ public class BoardTests {
 
         Position position = new Position(2, 2, boardSize);
         board.replaceCellAt(position, new UltimateCandy());
-        assertThat(board.getCallAt(position)).isEqualTo(new UltimateCandy());
+        assertThat(board.getCellAt(position)).isEqualTo(new UltimateCandy());
     }
 
     @Test
@@ -42,7 +39,7 @@ public class BoardTests {
         for(int i = 0; i < boardSize.height(); i++) {
             for(int j = 0; j < boardSize.width(); j++) {
                 Position checkPosition = new Position(i, j, boardSize);
-                assertThat(board.getCallAt(checkPosition)).isEqualTo(new NormalCandy(0));
+                assertThat(board.getCellAt(checkPosition)).isEqualTo(new NormalCandy(0));
             }
         }
     }
@@ -62,7 +59,7 @@ public class BoardTests {
         for(int i = 0; i < otherBoardSize.height(); i++) {
             for(int j = 0; j < otherBoardSize.width(); j++) {
                 Position checkPosition = new Position(i, j, otherBoardSize);
-                assertThat(otherBoard.getCallAt(checkPosition)).isEqualTo(new NormalCandy(0));
+                assertThat(otherBoard.getCellAt(checkPosition)).isEqualTo(new NormalCandy(0));
             }
         }
     }

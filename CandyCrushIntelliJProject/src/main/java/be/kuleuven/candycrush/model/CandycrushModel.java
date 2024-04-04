@@ -1,11 +1,8 @@
 package be.kuleuven.candycrush.model;
 
-import be.kuleuven.candycrush.controller.CandycrushController;
 import be.kuleuven.candycrush.model.Candies.*;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 public class CandycrushModel{
@@ -57,7 +54,7 @@ public class CandycrushModel{
     }
 
     public Candy getCandyFromPosition(Position position) {
-        return board.getCallAt(position);
+        return board.getCellAt(position);
     }
 
     public Iterable<Position> getSameNeighboutPositions(Position position) {
