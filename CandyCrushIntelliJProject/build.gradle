@@ -11,9 +11,6 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    maven {
-        url = "..\\libraries"
-    }
 
 
 }
@@ -45,8 +42,6 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-
-    implementation group: 'be.kuleuven', name: 'checkNeighboursInGrid', version: '1.0'
 }
 
 test {

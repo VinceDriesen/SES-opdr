@@ -1,6 +1,7 @@
 package be.kuleuven.candycrush.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -11,8 +12,12 @@ public class Board <Type> {
 
     public Board(BoardSize boardSize, Function<Position, Type> cellCreator) {
         this.boardSize = boardSize;
-        this.list = new ArrayList<>();
+        this.list = new ArrayList<>(Collections.nCopies(boardSize.height()*boardSize.width() , null));
         this.fill(cellCreator);
+    }
+
+    public BoardSize getBoardSize() {
+        return boardSize;
     }
 
     public Type getCallAt(Position position) {
