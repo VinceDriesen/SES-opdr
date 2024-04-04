@@ -82,8 +82,7 @@ public class CandycrushModel{
         return neighbours;
     }
 
-    public Iterable<Position>  changeNeighboursFromPosition(Position position) {
-        ArrayList<Position> neighbours = (ArrayList<Position>)getSameNeighboutPositions(position);
+    public void changeNeighboursFromPosition(Position position) {
         if(neighbours.size() >= 4) {
             candyWithPositionSelected(position);
             score++;
@@ -92,7 +91,6 @@ public class CandycrushModel{
                 score++;
             }
         }
-        return neighbours;
     }
 
     public int getSizeIterable(Iterable<Integer> iterable) {
