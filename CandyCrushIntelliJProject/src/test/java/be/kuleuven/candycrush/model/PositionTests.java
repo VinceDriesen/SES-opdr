@@ -42,4 +42,6 @@ public class PositionTests {
         boolean result = pos.isLastColumn();
         assertThat(result).isEqualTo(true);
     }
+
+
 }

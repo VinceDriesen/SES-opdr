@@ -10,24 +10,18 @@ import java.util.Random;
 
 public class CandycrushModel{
     private static String speler;
-    private ArrayList<Candy> speelbord;
 
     private int score;
 
-    private BoardSize boardSize;
+    private Board<Candy> board;
 
 
     public CandycrushModel(String speler) {
         this.speler = speler;
-        speelbord = new ArrayList<>();
-        this.boardSize = new BoardSize(10,10);
-
-        for (int i = 0; i < boardSize.width()*boardSize.height(); i++){
-            speelbord.add(getRandomCandy());
-        }
+        this.board = new Board<>(new BoardSize(10,10), this::getRandomCandy);
     }
 
-    private Candy getRandomCandy() {
+    private Candy getRandomCandy(Position position) {
         Random random = new Random();
         int randomGetal = random.nextInt(9) + 1;
         Candy candy = switch (randomGetal) {
@@ -45,21 +39,17 @@ public class CandycrushModel{
         return speler;
     }
 
-    public ArrayList<Candy> getSpeelbord() {
-        return speelbord;
-    }
-
     public int getWidth() {
-        return boardSize.width();
+        return board.getBoardSize().width();
     }
 
     public int getHeight() {
-        return boardSize.height();
+        return board.getBoardSize().height();
     }
 
     public void candyWithPositionSelected(Position position){
         if (position.toIndex() != -1){
-            speelbord.set(position.toIndex(),getRandomCandy());
+            board.replaceCellAt(position, getRandomCandy(null));
             System.out.println(position + " veranderd");
         }else{
             System.out.println("model:candyWithIndexSelected:indexWasMinusOne");
@@ -67,22 +57,20 @@ public class CandycrushModel{
     }
 
     public Candy getCandyFromPosition(Position position) {
-        return speelbord.get(position.toIndex());
+        return board.getCallAt(position);
     }
 
     public Iterable<Position> getSameNeighboutPositions(Position position) {
         ArrayList<Position> neighbours = new ArrayList<>();
         for(Position p : position.neighborPositions()) {
             if(getCandyFromPosition(p).equals(getCandyFromPosition(position))) {
-
                 neighbours.add(p);
-                score++;
             }
         }
         return neighbours;
     }
 
-    public Iterable<Position>  changeNeighboursFromPosition(Position position) {
+    public void changeNeighboursFromPosition(Position position) {
         ArrayList<Position> neighbours = (ArrayList<Position>)getSameNeighboutPositions(position);
         if(neighbours.size() >= 4) {
             candyWithPositionSelected(position);
@@ -92,32 +80,17 @@ public class CandycrushModel{
                 score++;
             }
         }
-        return neighbours;
     }
-
-    public int getSizeIterable(Iterable<Integer> iterable) {
-        int counter = 0;
-        for (Integer i : iterable) {
-            counter++;
-        }
-        return counter;
-    }
-
     public int getScore() {
         return score;
     }
 
     public void resetAll() {
         score = 0;
-
-        speelbord = new ArrayList<>();
-
-        for (int i = 0; i < boardSize.width()*boardSize.height(); i++){
-            speelbord.add(getRandomCandy());
-        }
+        this.board = new Board<>(new BoardSize(10,10), this::getRandomCandy);
     }
 
     public BoardSize getBoardSize() {
-        return boardSize;
+        return board.getBoardSize();
     }
 }
