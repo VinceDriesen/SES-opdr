@@ -1,19 +1,17 @@
 package be.kuleuven.candycrush.model;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.ArrayListMultimap;
 
 public class Board <Type> {
-    private BoardSize boardSize;
-
-    private Map<Position, Type> list = new HashMap<>();
-    private Multimap<Type, Position> omgekeerdeList = ArrayListMultimap.create();
-
+    private volatile BoardSize boardSize;
+    private volatile Map<Position, Type> list = new ConcurrentHashMap<>();
+    private volatile Multimap<Type, Position> omgekeerdeList = ArrayListMultimap.create();
 
     public Board(BoardSize boardSize, Function<Position, Type> cellCreator) {
         this.boardSize = boardSize;
@@ -32,14 +30,14 @@ public class Board <Type> {
         return omgekeerdeList;
     }
 
-    public Type getCellAt(Position position) {
+    public synchronized Type getCellAt(Position position) {
         if(list.size() <= position.toIndex()) {
             throw new IndexOutOfBoundsException();
         }
         return list.get(position);
     }
 
-    public void replaceCellAt(Position position, Type newCell) {
+    public synchronized void replaceCellAt(Position position, Type newCell) {
         if(list.size() <= position.toIndex()) {
             throw new IndexOutOfBoundsException();
         }
@@ -49,7 +47,7 @@ public class Board <Type> {
         list.replace(position, newCell);
     }
 
-    public void fill(Function<Position, Type> cellCreator) {
+    public synchronized void fill(Function<Position, Type> cellCreator) {
         for(int i = 0; i < boardSize.height(); i++) {
             for(int j = 0; j < boardSize.width(); j++) {
                 Position position = new Position(i,j,this.getBoardSize());
@@ -59,7 +57,7 @@ public class Board <Type> {
         }
     }
 
-    public void copyTo(Board<Type> otherBoard) {
+    public synchronized void copyTo(Board<Type> otherBoard) {
         if(!otherBoard.boardSize.equals(boardSize)) {
             throw new IllegalArgumentException("Board is not of the same size");
         }
