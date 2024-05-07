@@ -1,6 +1,7 @@
 package be.kuleuven.candycrush.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public record BoardSize(int width, int height) {
     public BoardSize {
@@ -8,7 +9,7 @@ public record BoardSize(int width, int height) {
         if (height < 0) throw new IllegalArgumentException("Height moet groter zijn dan 0");
     }
 
-    public Iterable<Position> positions() {
+    public Collection<Position> positions() {
         ArrayList<Position> positions = new ArrayList<>();
         for(int i = 0; i < width*height; i++) {
             positions.add(Position.fromIndex(i,this));

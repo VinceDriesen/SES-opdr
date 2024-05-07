@@ -2,8 +2,10 @@ package be.kuleuven.candycrush.model;
 
 import be.kuleuven.candycrush.model.Candies.*;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class CandycrushModel{
     private static String speler;
@@ -69,7 +71,7 @@ public class CandycrushModel{
 
     public void changeNeighboursFromPosition(Position position) {
         ArrayList<Position> neighbours = (ArrayList<Position>)getSameNeighboutPositions(position);
-        if(neighbours.size() >= 4) {
+        if(neighbours.size() >= 3) {
             candyWithPositionSelected(position);
             score++;
             for(Position p : neighbours) {
@@ -89,5 +91,45 @@ public class CandycrushModel{
 
     public BoardSize getBoardSize() {
         return board.getBoardSize();
+    }
+
+    public Set<List<Position>> findAllMatches() {
+        var streamHorizontal = horizontalStartingPosition()
+                .map(this::longestMatchToRight)
+                .filter(list -> list.size() >= 3);
+        var streamVertical = verticalStartingPosition()
+                .map(this::longestMatchToDown)
+                .filter(list -> list.size() >= 3);
+
+        return Stream.concat(streamHorizontal, streamVertical).collect(Collectors.toSet());
+    }
+
+    public boolean firstTwoHaveCandy(Candy candy, Stream<Position> positions) {
+        return positions.limit(2)
+                .allMatch(position -> candy.equals(getCandyFromPosition(position)));
+    }
+
+    public Stream<Position> horizontalStartingPosition() {
+        return IntStream.range(0, getBoardSize().width() * getBoardSize().height())
+                .mapToObj(i -> new Position(i % getBoardSize().width(), i / getBoardSize().width(), this.getBoardSize()))
+                .filter(pos -> pos.x() >= 0 && firstTwoHaveCandy(getCandyFromPosition(pos), pos.walkRight()));
+    }
+
+    public Stream<Position> verticalStartingPosition() {
+        return IntStream.range(0, getBoardSize().width() * getBoardSize().height())
+                .mapToObj(i -> new Position(i % getBoardSize().width(), i / getBoardSize().width(), this.getBoardSize()))
+                .filter(pos -> pos.y() >= 0 && firstTwoHaveCandy(getCandyFromPosition(pos), pos.walkDown()));
+    }
+
+    private List<Position> longestMatchToRight(Position position) {
+        return position.walkRight()
+                .takeWhile(position1 -> getCandyFromPosition(position1).equals(getCandyFromPosition(position)))
+                .collect(Collectors.toList());
+    }
+
+    private List<Position> longestMatchToDown(Position position) {
+        return position.walkDown()
+                .takeWhile(position1 -> getCandyFromPosition(position1).equals(getCandyFromPosition(position)))
+                .collect(Collectors.toList());
     }
 }

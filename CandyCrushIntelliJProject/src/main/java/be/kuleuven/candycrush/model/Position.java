@@ -1,10 +1,15 @@
 package be.kuleuven.candycrush.model;
 
 
+import com.google.common.primitives.Ints;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public record Position(int x, int y, BoardSize boardSize) {
     public Position {
@@ -40,13 +45,29 @@ public record Position(int x, int y, BoardSize boardSize) {
         return list;
     }
 
-//    public static void main(String[] args) {
-//        Position position = new Position(2,2,new BoardSize(10,10));
-//        ArrayList<Position> uitkomst = (ArrayList<Position>) position.neighborPositions();
-//        for(int i = 0; i < uitkomst.size(); i++) {
-//            System.out.println(uitkomst.get(i));
-//        }
-//    }
+    public Stream<Position> walkLeft() {
+        Stream<Position> result = IntStream.rangeClosed(0,x)
+                .mapToObj(i -> new Position(x-i, y, this.boardSize));
+        return result;
+    }
+
+    public Stream<Position> walkRight() {
+        Stream<Position> result = IntStream.rangeClosed(x, boardSize().width()-1)
+                .mapToObj(i -> new Position(i, y, this.boardSize));
+        return result;
+    }
+    public Stream<Position> walkUp() {
+        Stream<Position> result = IntStream.rangeClosed(0,y)
+                .mapToObj(i -> new Position(x, y-i, this.boardSize));
+        return result;
+    }
+
+    public Stream<Position> walkDown() {
+        Stream<Position> result = IntStream.rangeClosed(y,boardSize.height()-1)
+                .mapToObj(i -> new Position(x, i, this.boardSize));
+        return result;
+    }
+
 
     public boolean isLastColumn() {
         return x == boardSize().width() - 1;
