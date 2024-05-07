@@ -1,6 +1,7 @@
 package be.kuleuven.candycrush.model;
 
 import be.kuleuven.candycrush.model.Candies.*;
+import javafx.geometry.Pos;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,11 +10,11 @@ import java.util.stream.Stream;
 
 public class CandycrushModel{
     private static String speler;
-
+    private int randomSeed = 4;
+    Random random = new Random(randomSeed);
     private int score;
 
     private Board<Candy> board;
-
 
     public CandycrushModel(String speler) {
         this.speler = speler;
@@ -21,7 +22,7 @@ public class CandycrushModel{
     }
 
     private Candy getRandomCandy(Position position) {
-        Random random = new Random();
+//        Random random = new Random();
         int randomGetal = random.nextInt(9) + 1;
         Candy candy = switch (randomGetal) {
             case 1 -> new RainbowCandy();
@@ -86,6 +87,7 @@ public class CandycrushModel{
 
     public void resetAll() {
         score = 0;
+        random = new Random(randomSeed);
         this.board = new Board<>(new BoardSize(10,10), this::getRandomCandy);
     }
 
@@ -131,5 +133,63 @@ public class CandycrushModel{
         return position.walkDown()
                 .takeWhile(position1 -> getCandyFromPosition(position1).equals(getCandyFromPosition(position)))
                 .collect(Collectors.toList());
+    }
+
+
+    public void clearMatch(List<Position> match) {
+        if(!match.isEmpty()) {
+            board.replaceCellAt(match.getFirst(), new EmptyCandy());
+            clearMatch(match.subList(1, match.size()));
+        }
+    }
+
+    public void fallDownTo(Position position){
+        if(position.y() > 0) {
+            Position above = new Position(position.x(), position.y() - 1, this.getBoardSize());
+            if(getCandyFromPosition(above) instanceof EmptyCandy){
+                fallDownTo(above);
+            }
+            else {
+                if(getCandyFromPosition(position) instanceof EmptyCandy) {
+                    moveToLowest(above);
+                }
+                fallDownTo(above);
+            }
+        }
+    }
+
+    public void moveToLowest(Position position) {
+        for(int i = 1; i < getBoardSize().height() - position.y(); i++){
+            Position current = new Position(position.x(), position.y() + i - 1, this.getBoardSize());
+            Position under = new Position(position.x(), position.y() + i, this.getBoardSize());
+            if(!(getCandyFromPosition(under) instanceof EmptyCandy)){
+                board.replaceCellAt(current, board.getCellAt(position));
+                board.replaceCellAt(position, new EmptyCandy());
+                return;
+            }
+            else if(under.y() == board.getBoardSize().height() - 1) {
+                board.replaceCellAt(new Position(current.x(), current.y() + 1, this.getBoardSize()), board.getCellAt(position));
+                board.replaceCellAt(position, new EmptyCandy());
+                return;
+            }
+
+        }
+    }
+
+    public boolean updateBoard(){
+        return updateBoard(true);
+    }
+
+    public boolean updateBoard(boolean isFirstCall){
+        var matches = findAllMatches();
+        if(matches.isEmpty() && isFirstCall){
+            return false;
+        } else if (matches.isEmpty()){
+            return true;
+        } else {
+            matches.forEach(this::clearMatch);
+            matches.forEach(list -> list.forEach(this::fallDownTo));
+            return updateBoard(false);
+        }
     }
 }

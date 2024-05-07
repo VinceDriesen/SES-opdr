@@ -66,6 +66,11 @@ public class CandycrushView extends Region {
 
             }
         }
+        else if(candy instanceof EmptyCandy) {
+            Rectangle vierkant = new Rectangle(position.x() * widthCandy, position.y() * heigthCandy, widthCandy, heigthCandy);
+            vierkant.setFill(Color.TRANSPARENT);
+            return vierkant;
+        }
         else {
             switch (candy) {
                 case UltimateCandy ultimateCandy -> {

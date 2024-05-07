@@ -1,6 +1,7 @@
 package be.kuleuven.candycrush.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import be.kuleuven.candycrush.model.CandycrushModel;
@@ -56,9 +57,7 @@ public class CandycrushController {
     public void onCandyClicked(MouseEvent me){
         Position position = view.getPositionOfClicked(me);
         model.changeNeighboursFromPosition(position);
-        var stream = model.findAllMatches();
-        System.out.println("hier");
-        stream.forEach(System.out::println);
+        model.updateBoard();
         update();
     }
 
