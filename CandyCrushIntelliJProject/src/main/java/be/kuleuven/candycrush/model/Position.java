@@ -8,8 +8,8 @@ import java.util.Iterator;
 
 public record Position(int x, int y, BoardSize boardSize) {
     public Position {
-        if(x > boardSize.width() || x < 0) throw  new IllegalArgumentException("Waarde is niet geldig");
-        if(y > boardSize.height() || y < 0) throw  new IllegalArgumentException("Waarde is niet geldig");
+        if(x >= boardSize.width() || x < 0) throw  new IllegalArgumentException("Waarde is niet geldig");
+        if(y >= boardSize.height() || y < 0) throw  new IllegalArgumentException("Waarde is niet geldig");
     }
 
     public int toIndex() {
