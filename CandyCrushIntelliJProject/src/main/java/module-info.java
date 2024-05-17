@@ -4,6 +4,7 @@ module be.kuleuven.candycrush {
 
     requires org.controlsfx.controls;
     requires com.google.common;
+    requires org.checkerframework.checker.qual;
 
     opens be.kuleuven.candycrush to javafx.fxml;
 
